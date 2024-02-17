@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sakinleştirici Script</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        text-align: center;
+        padding-top: 50px;
+    }
+    #metronome {
+        font-size: 24px;
+        color: #333;
+    }
+</style>
+</head>
+<body>
+<div id="metronome">Hazırlanıyor...</div>
+
+<script>
+    // Metronom sesi için gerekli olan audio nesnesini oluştur
+    var audio = new Audio('https://www.soundjay.com/button/beep-07.wav');
+
+    // Metronom fonksiyonu
+    function metronome() {
+        var metronomeElement = document.getElementById('metronome');
+        metronomeElement.innerHTML = "Sakinleş...";
+
+        // Metronom sesini çal
+        audio.play();
+
+        // 30 saniye sonra tekrar çağır
+        setTimeout(function() {
+            metronomeElement.innerHTML = "Hala buradayım...";
+            // 30 saniye sonra tekrar çağır
+            setTimeout(function() {
+                metronome();
+            }, 30000);
+        }, 1000); // 1 saniye sonra metronom sesini çal
+    }
+
+    // Metronom fonksiyonunu çağır
+    window.onload = function() {
+        metronome();
+    };
+</script>
+</body>
+</html>
