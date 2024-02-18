@@ -3,48 +3,83 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Su Damlaları</title>
+<title>Çekici Animasyon</title>
 <style>
   body {
-    background-color: #009688; /* Arka plan rengi (yeşil) */
+    background-color: #000;
     margin: 0;
-    padding: 0;
-    overflow: hidden; /* Sayfa boyutu kadar scroll yapma */
+    overflow: hidden;
+    cursor: none; /* Mouse gizle */
   }
-  #water-drop {
+  #main-circle {
     position: absolute;
-    top: -50px; /* Başlangıçta sayfanın dışında */
-    left: 50%; /* Sayfanın ortasında */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 100px;
     height: 100px;
-    background-color: #64b5f6; /* Mavi su rengi */
-    border-radius: 50%; /* Yuvarlatılmış şekil */
-    opacity: 0.7; /* Opaklık */
-    transition: top 2s, opacity 2s; /* Geçiş efektleri */
+    background-color: white;
+    border-radius: 50%;
+    z-index: 1000;
+  }
+  .small-circle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    transition: all 0.5s ease-out;
+    z-index: 999;
   }
 </style>
 </head>
 <body>
-<div id="water-drop"></div>
+<div id="main-circle"></div>
 
 <script>
-// Su damlasının HTML elementini seçme
-const waterDrop = document.getElementById("water-drop");
+document.addEventListener("DOMContentLoaded", function() {
+  const mainCircle = document.getElementById("main-circle");
+  const body = document.body;
 
-// Su damlasının hareketi için fare etkileşimi
-document.addEventListener("mousemove", function(event) {
-  // Fare pozisyonunu al
-  const mouseX = event.clientX;
-  const mouseY = event.clientY;
-  
-  // Su damlasının pozisyonunu ayarla (fareye yakınlaştıkça su damlası yukarı çıkacak)
-  waterDrop.style.top = (mouseY - 50) + "px"; // Y ekseninde su damlasının hareketi
-  
-  // Fareye yaklaştıkça su damlasının opaklığını azalt
-  const distance = Math.sqrt(Math.pow((mouseX - window.innerWidth / 2), 2) + Math.pow((mouseY - window.innerHeight / 2), 2));
-  const maxDistance = Math.sqrt(Math.pow((window.innerWidth / 2), 2) + Math.pow((window.innerHeight / 2), 2));
-  const opacity = 0.7 - (distance / maxDistance) * 0.7; // Maksimum opaklığı (0.7) azaltarak
-  waterDrop.style.opacity = opacity.toFixed(2); // Opaklık değerini ayarla
+  // Mouse hareketini izle
+  body.addEventListener("mousemove", function(event) {
+    const mouseX = event.clientX;
+    const mouseY = event.clientY;
+
+    // Ana dairenin merkezi
+    const mainCircleX = mainCircle.offsetLeft + mainCircle.offsetWidth / 2;
+    const mainCircleY = mainCircle.offsetTop + mainCircle.offsetHeight / 2;
+
+    // Ana daireden fareye doğru vektör
+    const dx = mouseX - mainCircleX;
+    const dy = mouseY - mainCircleY;
+
+    // Vektörün büyüklüğü
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    // Eğer fare ana dairenin içindeyse, yanıp sönme efekti oluştur
+    if (distance < mainCircle.offsetWidth / 2) {
+      const smallCircles = document.getElementsByClassName("small-circle");
+      for (let i = 0; i < smallCircles.length; i++) {
+        const smallCircle = smallCircles[i];
+        smallCircle.style.transform = `translate(${dx}px, ${dy}px)`;
+      }
+    }
+  });
+
+  // Rastgele konumlarda ve boyutlarda daireler oluştur
+  setInterval(function() {
+    const smallCircle = document.createElement("div");
+    smallCircle.classList.add("small-circle");
+    smallCircle.style.top = Math.random() * (window.innerHeight - 20) + "px";
+    smallCircle.style.left = Math.random() * (window.innerWidth - 20) + "px";
+    body.appendChild(smallCircle);
+
+    // Belirli bir süre sonra daireyi kaldır
+    setTimeout(function() {
+      smallCircle.remove();
+    }, 2000);
+  }, 100);
 });
 </script>
 </body>
