@@ -83,6 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Ana daireye sağ veya sol tıklandığında sadece beyaz renkli küçük dairelere efekt uygula
   mainCircle.addEventListener("mousedown", function(event) {
+    event.preventDefault(); // Sağ tıklamayı engelle
     const isRightClick = event.button === 2;
     const color = isRightClick ? "red" : "blue";
     const whiteSmallCircles = document.querySelectorAll(".small-circle:not([style*='background-color'])");
