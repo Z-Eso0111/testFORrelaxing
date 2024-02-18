@@ -28,7 +28,7 @@
     height: 20px;
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 50%;
-    transition: all 0.5s ease-out;
+    transition: all 1.5s ease-out;
     z-index: 999;
   }
 </style>
@@ -77,13 +77,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Belirli bir süre sonra daireyi kaldır
     setTimeout(function() {
-      smallCircle.style.transition = "opacity 2s, transform 2s";
+      smallCircle.style.transition = "all 2s ease-out";
       smallCircle.style.opacity = "0"; // Yavaşça saydamlığı sıfıra ayarla
       smallCircle.style.transform = "scale(0.5)"; // Küçült
+      smallCircle.style.backgroundColor = "red"; // Kırmızıya dönüştür
+      smallCircle.style.boxShadow = "0px 0px 10px 5px red"; // Titreme efekti
       setTimeout(function() {
         smallCircle.remove(); // Tamamen kaldır
       }, 2000);
-    }, 1000);
+    }, 2000);
   }, 100);
 
   // Ana daireye tıklandığında bir işlem yap
@@ -92,7 +94,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const smallCircles = document.getElementsByClassName("small-circle");
     for (let i = 0; i < smallCircles.length; i++) {
       const smallCircle = smallCircles[i];
-      smallCircle.style.backgroundColor = "red"; // Örneğin, kırmızıya dönüştür
+      smallCircle.style.transition = "all 1.5s ease-out";
+      smallCircle.style.opacity = "0"; // Yavaşça saydamlığı sıfıra ayarla
+      smallCircle.style.transform = "scale(0.5)"; // Küçült
+      smallCircle.style.backgroundColor = "red"; // Kırmızıya dönüştür
+      smallCircle.style.boxShadow = "0px 0px 10px 5px red"; // Titreme efekti
+      setTimeout(function() {
+        smallCircle.remove(); // Tamamen kaldır
+      }, 1500);
     }
   });
 });
