@@ -79,9 +79,6 @@ document.addEventListener("DOMContentLoaded", function() {
     setTimeout(function() {
       smallCircle.remove();
     }, 2000);
-
-    // Küçük dairelerin ana daireye doğru hareket etmesi
-    moveTowardsMainCircle(smallCircle);
   }, 100);
 
   // Ana daireye sol tıklandığında bir işlem yap
@@ -109,25 +106,29 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 
-  // Küçük daireleri ana daireye doğru hareket ettiren fonksiyon
-  function moveTowardsMainCircle(smallCircle) {
-    const mainCircleX = mainCircle.offsetLeft + mainCircle.offsetWidth / 2;
-    const mainCircleY = mainCircle.offsetTop + mainCircle.offsetHeight / 2;
-    const smallCircleX = smallCircle.offsetLeft + smallCircle.offsetWidth / 2;
-    const smallCircleY = smallCircle.offsetTop + smallCircle.offsetHeight / 2;
-
-    const dx = mainCircleX - smallCircleX;
-    const dy = mainCircleY - smallCircleY;
-    const angle = Math.atan2(dy, dx);
-
-    const speed = 2; // Hızı ayarla
-
-    const velocityX = Math.cos(angle) * speed;
-    const velocityY = Math.sin(angle) * speed;
-
-    smallCircle.style.left = smallCircleX + velocityX + "px";
-    smallCircle.style.top = smallCircleY + velocityY + "px";
-  }
+  // Mavi dairelerin kırmızı dairelere doğru hareket etmesi
+  setInterval(function() {
+    const smallCircles = document.getElementsByClassName("small-circle");
+    for (let i = 0; i < smallCircles.length; i++) {
+      const smallCircle = smallCircles[i];
+      if (smallCircle.style.backgroundColor === "blue") {
+        // Ana dairenin konumuna doğru hareket et
+        const dx = mainCircle.offsetLeft + mainCircle.offsetWidth / 2 - smallCircle.offsetLeft - smallCircle.offsetWidth / 2;
+        const dy = mainCircle.offsetTop + mainCircle.offsetHeight / 2 - smallCircle.offsetTop - smallCircle.offsetHeight / 2;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        // Hareketi normalleştir
+        const speed = 5; // Hız ayarı
+        const vx = (dx / distance) * speed;
+        const vy = (dy / distance) * speed;
+        // Yeni konumları hesapla
+        const newX = smallCircle.offsetLeft + vx;
+        const newY = smallCircle.offsetTop + vy;
+        // Yeni konumu uygula
+        smallCircle.style.left = newX + "px";
+        smallCircle.style.top = newY + "px";
+      }
+    }
+  }, 100);
 });
 </script>
 </body>
