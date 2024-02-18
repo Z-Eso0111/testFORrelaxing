@@ -28,7 +28,7 @@
     height: 20px;
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 50%;
-    transition: all 1.5s ease-out;
+    transition: all 3s ease-out;
     z-index: 999;
   }
 </style>
@@ -77,15 +77,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Belirli bir süre sonra daireyi kaldır
     setTimeout(function() {
-      smallCircle.style.transition = "all 2s ease-out";
+      smallCircle.style.transition = "all 3s ease-out";
       smallCircle.style.opacity = "0"; // Yavaşça saydamlığı sıfıra ayarla
       smallCircle.style.transform = "scale(0.5)"; // Küçült
       smallCircle.style.backgroundColor = "red"; // Kırmızıya dönüştür
       smallCircle.style.boxShadow = "0px 0px 10px 5px red"; // Titreme efekti
       setTimeout(function() {
         smallCircle.remove(); // Tamamen kaldır
-      }, 2000);
-    }, 2000);
+      }, 3000);
+    }, 1000);
   }, 100);
 
   // Ana daireye tıklandığında bir işlem yap
@@ -94,14 +94,18 @@ document.addEventListener("DOMContentLoaded", function() {
     const smallCircles = document.getElementsByClassName("small-circle");
     for (let i = 0; i < smallCircles.length; i++) {
       const smallCircle = smallCircles[i];
-      smallCircle.style.transition = "all 1.5s ease-out";
+      smallCircle.style.transition = "all 3s ease-out";
       smallCircle.style.opacity = "0"; // Yavaşça saydamlığı sıfıra ayarla
       smallCircle.style.transform = "scale(0.5)"; // Küçült
       smallCircle.style.backgroundColor = "red"; // Kırmızıya dönüştür
       smallCircle.style.boxShadow = "0px 0px 10px 5px red"; // Titreme efekti
+      // Sağa sola, yukarı aşağı titreme
+      let randomX = Math.random() > 0.5 ? Math.random() * 5 : -Math.random() * 5;
+      let randomY = Math.random() > 0.5 ? Math.random() * 5 : -Math.random() * 5;
+      smallCircle.style.animation = `tremble 1s infinite alternate ease-in-out`;
       setTimeout(function() {
         smallCircle.remove(); // Tamamen kaldır
-      }, 1500);
+      }, 3000);
     }
   });
 });
