@@ -26,10 +26,11 @@
     position: absolute;
     width: 20px;
     height: 20px;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 50%;
-    transition: all 0.5s ease-out;
+    transition: all 0.3s ease-out;
     z-index: 999;
+    opacity: 0; /* Başlangıçta görünmez */
   }
 </style>
 </head>
@@ -62,7 +63,12 @@ document.addEventListener("DOMContentLoaded", function() {
       const smallCircles = document.getElementsByClassName("small-circle");
       for (let i = 0; i < smallCircles.length; i++) {
         const smallCircle = smallCircles[i];
-        smallCircle.style.transform = `translate(${dx}px, ${dy}px)`;
+        smallCircle.style.opacity = 1; // Görünür yap
+
+        // Daireyi ana dairenin merkezine doğru hareket ettir
+        const translateX = dx * 0.1; // Hızı ayarla (min 0.1)
+        const translateY = dy * 0.1; // Hızı ayarla (min 0.1)
+        smallCircle.style.transform = `translate(${translateX}px, ${translateY}px)`;
       }
     }
   });
@@ -75,9 +81,12 @@ document.addEventListener("DOMContentLoaded", function() {
     smallCircle.style.left = Math.random() * (window.innerWidth - 20) + "px";
     body.appendChild(smallCircle);
 
-    // Belirli bir süre sonra daireyi kaldır
+    // Belirli bir süre sonra daireyi kaldır ve belirginliğini sıfıra çek
     setTimeout(function() {
-      smallCircle.remove();
+      smallCircle.style.opacity = 0; // Görünmez yap
+      setTimeout(function() {
+        smallCircle.remove();
+      }, 300); // Opaklık geçiş süresi
     }, 2000);
   }, 100);
 });
