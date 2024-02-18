@@ -84,22 +84,20 @@ document.addEventListener("DOMContentLoaded", function() {
   // Ana daireye sol tıklandığında bir işlem yap
   mainCircle.addEventListener("click", function() {
     // Etrafındaki beyaz dairelere bir efekt ekle (örneğin renk değişikliği)
-    const smallCircles = document.getElementsByClassName("small-circle");
-    for (let i = 0; i < smallCircles.length; i++) {
-      const smallCircle = smallCircles[i];
-      smallCircle.style.backgroundColor = "red"; // Beyaz daireleri kırmızıya dönüştür
-    }
+    const whiteCircles = document.querySelectorAll(".small-circle:not(.blue)");
+    whiteCircles.forEach(function(whiteCircle) {
+      whiteCircle.style.backgroundColor = "red"; // Beyaz daireleri kırmızıya dönüştür
+    });
   });
 
   // Ana daireye sağ tıklandığında bir işlem yap
   mainCircle.addEventListener("contextmenu", function(event) {
     event.preventDefault(); // Sağ tıklama menüsünü engelle
     // Etrafındaki beyaz dairelere bir efekt ekle (örneğin renk değişikliği)
-    const smallCircles = document.getElementsByClassName("small-circle");
-    for (let i = 0; i < smallCircles.length; i++) {
-      const smallCircle = smallCircles[i];
-      smallCircle.style.backgroundColor = "blue"; // Beyaz daireleri maviye dönüştür
-    }
+    const whiteCircles = document.querySelectorAll(".small-circle:not(.red)");
+    whiteCircles.forEach(function(whiteCircle) {
+      whiteCircle.style.backgroundColor = "blue"; // Beyaz daireleri maviye dönüştür
+    });
   });
 });
 </script>
