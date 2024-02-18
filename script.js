@@ -27,8 +27,8 @@ class Damla {
         this.y += this.vy;
 
         // Fare ile etkileşim
-        const fareX = event.clientX;
-        const fareY = event.clientY;
+        const fareX = event.clientX; // Bu satırda hata vardı
+        const fareY = event.clientY; // Bu satırda hata vardı
         const mesafe = Math.sqrt((fareX - this.x) ** 2 + (fareY - this.y) ** 2);
 
         if (mesafe < this.r * 2) {
