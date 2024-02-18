@@ -84,20 +84,26 @@ document.addEventListener("DOMContentLoaded", function() {
   // Ana daireye sol tıklandığında bir işlem yap
   mainCircle.addEventListener("click", function() {
     // Etrafındaki beyaz dairelere bir efekt ekle (örneğin renk değişikliği)
-    const whiteCircles = document.querySelectorAll(".small-circle:not(.blue)");
-    whiteCircles.forEach(function(whiteCircle) {
-      whiteCircle.style.backgroundColor = "red"; // Beyaz daireleri kırmızıya dönüştür
-    });
+    const smallCircles = document.getElementsByClassName("small-circle");
+    for (let i = 0; i < smallCircles.length; i++) {
+      const smallCircle = smallCircles[i];
+      if (smallCircle.style.backgroundColor === "white" || smallCircle.style.backgroundColor === "") {
+        smallCircle.style.backgroundColor = "red"; // Beyaz daireleri kırmızıya dönüştür
+      }
+    }
   });
 
   // Ana daireye sağ tıklandığında bir işlem yap
   mainCircle.addEventListener("contextmenu", function(event) {
     event.preventDefault(); // Sağ tıklama menüsünü engelle
     // Etrafındaki beyaz dairelere bir efekt ekle (örneğin renk değişikliği)
-    const whiteCircles = document.querySelectorAll(".small-circle:not(.red)");
-    whiteCircles.forEach(function(whiteCircle) {
-      whiteCircle.style.backgroundColor = "blue"; // Beyaz daireleri maviye dönüştür
-    });
+    const smallCircles = document.getElementsByClassName("small-circle");
+    for (let i = 0; i < smallCircles.length; i++) {
+      const smallCircle = smallCircles[i];
+      if (smallCircle.style.backgroundColor === "white" || smallCircle.style.backgroundColor === "") {
+        smallCircle.style.backgroundColor = "blue"; // Beyaz daireleri maviye dönüştür
+      }
+    }
   });
 });
 </script>
