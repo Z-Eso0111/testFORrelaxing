@@ -81,78 +81,24 @@ document.addEventListener("DOMContentLoaded", function() {
     }, 2000);
   }, 100);
 
-  // Ana daireye sol tıklandığında bir işlem yap
-  mainCircle.addEventListener("click", function() {
-    // Etrafındaki beyaz dairelere bir efekt ekle (örneğin renk değişikliği)
-    const smallCircles = document.getElementsByClassName("small-circle");
-    for (let i = 0; i < smallCircles.length; i++) {
-      const smallCircle = smallCircles[i];
-      if (smallCircle.style.backgroundColor === "white" || smallCircle.style.backgroundColor === "") {
-        smallCircle.style.backgroundColor = "red"; // Beyaz daireleri kırmızıya dönüştür
-      }
-    }
-  });
-
-  // Ana daireye sağ tıklandığında bir işlem yap
+  // Ana daireye sağ tıklandığında küçük dairelere kırmızı efekt uygula
   mainCircle.addEventListener("contextmenu", function(event) {
-    event.preventDefault(); // Sağ tıklama menüsünü engelle
-    // Etrafındaki beyaz dairelere bir efekt ekle (örneğin renk değişikliği)
+    event.preventDefault(); // Sağ tık menüsünü engelle
     const smallCircles = document.getElementsByClassName("small-circle");
     for (let i = 0; i < smallCircles.length; i++) {
       const smallCircle = smallCircles[i];
-      if (smallCircle.style.backgroundColor === "white" || smallCircle.style.backgroundColor === "") {
-        smallCircle.style.backgroundColor = "blue"; // Beyaz daireleri maviye dönüştür
-      }
+      smallCircle.style.backgroundColor = "red";
     }
   });
 
-  // Kırmızı dairelerin ana daireden uzaklaşması
-  setInterval(function() {
+  // Ana daireye sol tıklandığında küçük dairelere mavi efekt uygula
+  mainCircle.addEventListener("click", function() {
     const smallCircles = document.getElementsByClassName("small-circle");
     for (let i = 0; i < smallCircles.length; i++) {
       const smallCircle = smallCircles[i];
-      if (smallCircle.style.backgroundColor === "red") {
-        // Ana daireden uzaklaş
-        const dx = smallCircle.offsetLeft + smallCircle.offsetWidth / 2 - mainCircle.offsetLeft - mainCircle.offsetWidth / 2;
-        const dy = smallCircle.offsetTop + smallCircle.offsetHeight / 2 - mainCircle.offsetTop - mainCircle.offsetHeight / 2;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        // Hareketi normalleştir
-        const speed = 5; // Hız ayarı
-        const vx = (dx / distance) * speed;
-        const vy = (dy / distance) * speed;
-        // Yeni konumları hesapla
-        const newX = smallCircle.offsetLeft - vx;
-        const newY = smallCircle.offsetTop - vy;
-        // Yeni konumu uygula
-        smallCircle.style.left = newX + "px";
-        smallCircle.style.top = newY + "px";
-      }
+      smallCircle.style.backgroundColor = "blue";
     }
-  }, 100);
-
-  // Mavi dairelerin ana daireye doğru hareket etmesi
-  setInterval(function() {
-    const smallCircles = document.getElementsByClassName("small-circle");
-    for (let i = 0; i < smallCircles.length; i++) {
-      const smallCircle = smallCircles[i];
-      if (smallCircle.style.backgroundColor === "blue") {
-        // Ana dairenin konumuna doğru hareket et
-        const dx = mainCircle.offsetLeft + mainCircle.offsetWidth / 2 - smallCircle.offsetLeft - smallCircle.offsetWidth / 2;
-        const dy = mainCircle.offsetTop + mainCircle.offsetHeight / 2 - smallCircle.offsetTop - smallCircle.offsetHeight / 2;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        // Hareketi normalleştir
-        const speed = 5; // Hız ayarı
-        const vx = (dx / distance) * speed;
-        const vy = (dy / distance) * speed;
-        // Yeni konumları hesapla
-        const newX = smallCircle.offsetLeft + vx;
-        const newY = smallCircle.offsetTop + vy;
-        // Yeni konumu uygula
-        smallCircle.style.left = newX + "px";
-        smallCircle.style.top = newY + "px";
-      }
-    }
-  }, 100);
+  });
 });
 </script>
 </body>
