@@ -79,6 +79,9 @@ document.addEventListener("DOMContentLoaded", function() {
     setTimeout(function() {
       smallCircle.remove();
     }, 2000);
+
+    // Küçük dairelerin ana daireye doğru hareket etmesi
+    moveTowardsMainCircle(smallCircle);
   }, 100);
 
   // Ana daireye sol tıklandığında bir işlem yap
@@ -105,6 +108,26 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }
   });
+
+  // Küçük daireleri ana daireye doğru hareket ettiren fonksiyon
+  function moveTowardsMainCircle(smallCircle) {
+    const mainCircleX = mainCircle.offsetLeft + mainCircle.offsetWidth / 2;
+    const mainCircleY = mainCircle.offsetTop + mainCircle.offsetHeight / 2;
+    const smallCircleX = smallCircle.offsetLeft + smallCircle.offsetWidth / 2;
+    const smallCircleY = smallCircle.offsetTop + smallCircle.offsetHeight / 2;
+
+    const dx = mainCircleX - smallCircleX;
+    const dy = mainCircleY - smallCircleY;
+    const angle = Math.atan2(dy, dx);
+
+    const speed = 2; // Hızı ayarla
+
+    const velocityX = Math.cos(angle) * speed;
+    const velocityY = Math.sin(angle) * speed;
+
+    smallCircle.style.left = smallCircleX + velocityX + "px";
+    smallCircle.style.top = smallCircleY + velocityY + "px";
+  }
 });
 </script>
 </body>
