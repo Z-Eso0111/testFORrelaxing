@@ -1,98 +1,34 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sakinleştirici Ortam</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #000000; /* Arkaplan Rengi */
-            font-family: sans-serif;
-        }
-        
-        #canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dikkat Çekici ve Sakinleştirici Deneyim</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <audio controls>
+    <source src="sakinlestirici-muzik.mp3" type="audio/mpeg">
+  </audio>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.12.0/p5.min.js"></script>
-    <script>
-        var canvas = document.getElementById("canvas");
-        var ctx = canvas.getContext("2d");
-        
-        // Renkler
-        var backgroundColor = "#000000";
-        var particleColor = "#ffffff";
-        
-        // Parçacık Sayısı
-        var particleCount = 200;
-        
-        // Parçacık Sınıfı
-        class Particle {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.vx = Math.random() * 2 - 1;
-                this.vy = Math.random() * 2 - 1;
-                this.radius = Math.random() * 2 + 1;
-            }
-            
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-                ctx.fillStyle = particleColor;
-                ctx.fill();
-            }
-            
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                
-                // Kenarlardan Sekme
-                if (this.x < 0 || this.x > canvas.width) {
-                    this.vx *= -1;
-                }
-                if (this.y < 0 || this.y > canvas.height) {
-                    this.vy *= -1;
-                }
-            }
-        }
-        
-        // Parçacık Dizisi
-        var particles = [];
-        
-        // Kurulum
-        function setup() {
-            for (var i = 0; i < particleCount; i++) {
-                particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
-            }
-        }
-        
-        // Çizim
-        function draw() {
-            ctx.fillStyle = backgroundColor;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            for (var i = 0; i < particleCount; i++) {
-                particles[i].draw();
-                particles[i].update();
-            }
-        }
-        
-        setup();
-        window.addEventListener("resize", setup);
-        
-        // Animasyon Çalıştırma
-        setInterval(draw, 1000 / 30);
-    </script>
+  <div class="arka-plan">
+    <img src="huzurlu-manzara.jpg" alt="Huzurlu Manzara">
+  </div>
+
+  <div class="animasyon-kutusu">
+    <div class="yıldız1"></div>
+    <div class="yıldız2"></div>
+    <div class="yıldız3"></div>
+    <div class="yıldız4"></div>
+    <div class="yıldız5"></div>
+  </div>
+
+  <div class="etkilesim-kutusu">
+    <button id="nefes-al">Nefes Al</button>
+    <button id="odaklan">Odaklan</button>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
