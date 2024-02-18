@@ -1,18 +1,51 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Su Damlası Animasyonu</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Su Damlaları</title>
+<style>
+  body {
+    background-color: #009688; /* Arka plan rengi (yeşil) */
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Sayfa boyutu kadar scroll yapma */
+  }
+  #water-drop {
+    position: absolute;
+    top: -50px; /* Başlangıçta sayfanın dışında */
+    left: 50%; /* Sayfanın ortasında */
+    width: 100px;
+    height: 100px;
+    background-color: #64b5f6; /* Mavi su rengi */
+    border-radius: 50%; /* Yuvarlatılmış şekil */
+    opacity: 0.7; /* Opaklık */
+    transition: top 2s, opacity 2s; /* Geçiş efektleri */
+  }
+</style>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
-    <script src="script.js"></script>
+<div id="water-drop"></div>
+
+<script>
+// Su damlasının HTML elementini seçme
+const waterDrop = document.getElementById("water-drop");
+
+// Su damlasının hareketi için fare etkileşimi
+document.addEventListener("mousemove", function(event) {
+  // Fare pozisyonunu al
+  const mouseX = event.clientX;
+  const mouseY = event.clientY;
+  
+  // Su damlasının pozisyonunu ayarla (fareye yakınlaştıkça su damlası yukarı çıkacak)
+  waterDrop.style.top = (mouseY - 50) + "px"; // Y ekseninde su damlasının hareketi
+  
+  // Fareye yaklaştıkça su damlasının opaklığını azalt
+  const distance = Math.sqrt(Math.pow((mouseX - window.innerWidth / 2), 2) + Math.pow((mouseY - window.innerHeight / 2), 2));
+  const maxDistance = Math.sqrt(Math.pow((window.innerWidth / 2), 2) + Math.pow((window.innerHeight / 2), 2));
+  const opacity = 0.7 - (distance / maxDistance) * 0.7; // Maksimum opaklığı (0.7) azaltarak
+  waterDrop.style.opacity = opacity.toFixed(2); // Opaklık değerini ayarla
+});
+</script>
 </body>
 </html>
