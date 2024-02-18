@@ -81,17 +81,14 @@ document.addEventListener("DOMContentLoaded", function() {
     }, 2000);
   }, 100);
 
-  // Ana daireye tıklandığında sadece beyaz renkli küçük dairelere mavi veya kırmızı efekt uygula
-  mainCircle.addEventListener("click", function(event) {
-    const clickedButton = event.button;
-    const whiteSmallCircles = document.querySelectorAll(".small-circle:not([style*='background-color: red'])");
+  // Ana daireye sağ veya sol tıklandığında sadece beyaz renkli küçük dairelere efekt uygula
+  mainCircle.addEventListener("mousedown", function(event) {
+    const isRightClick = event.button === 2;
+    const color = isRightClick ? "red" : "blue";
+    const whiteSmallCircles = document.querySelectorAll(".small-circle:not([style*='background-color'])");
     for (let i = 0; i < whiteSmallCircles.length; i++) {
       const smallCircle = whiteSmallCircles[i];
-      if (clickedButton === 0) { // Sol tıklandığında
-        smallCircle.style.backgroundColor = "blue";
-      } else if (clickedButton === 2) { // Sağ tıklandığında
-        smallCircle.style.backgroundColor = "red";
-      }
+      smallCircle.style.backgroundColor = color;
     }
   });
 });
