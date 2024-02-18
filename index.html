@@ -108,24 +108,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Kırmızı dairelerin ana daireden uzaklaşması
   setInterval(function() {
-    const mainCircleX = mainCircle.offsetLeft + mainCircle.offsetWidth / 2;
-    const mainCircleY = mainCircle.offsetTop + mainCircle.offsetHeight / 2;
-
     const smallCircles = document.getElementsByClassName("small-circle");
     for (let i = 0; i < smallCircles.length; i++) {
       const smallCircle = smallCircles[i];
       if (smallCircle.style.backgroundColor === "red") {
-        // Ana daireden uzaklaşma vektörünü hesapla
-        const dx = smallCircle.offsetLeft + smallCircle.offsetWidth / 2 - mainCircleX;
-        const dy = smallCircle.offsetTop + smallCircle.offsetHeight / 2 - mainCircleY;
+        // Ana dairenin konumundan uzaklaş
+        const dx = smallCircle.offsetLeft + smallCircle.offsetWidth / 2 - mainCircle.offsetLeft - mainCircle.offsetWidth / 2;
+        const dy = smallCircle.offsetTop + smallCircle.offsetHeight / 2 - mainCircle.offsetTop - mainCircle.offsetHeight / 2;
         const distance = Math.sqrt(dx * dx + dy * dy);
         // Hareketi normalleştir
         const speed = 5; // Hız ayarı
-        const vx = -(dx / distance) * speed;
-        const vy = -(dy / distance) * speed;
+        const vx = (dx / distance) * speed;
+        const vy = (dy / distance) * speed;
         // Yeni konumları hesapla
-        const newX = smallCircle.offsetLeft + vx;
-        const newY = smallCircle.offsetTop + vy;
+        const newX = smallCircle.offsetLeft - vx;
+        const newY = smallCircle.offsetTop - vy;
         // Yeni konumu uygula
         smallCircle.style.left = newX + "px";
         smallCircle.style.top = newY + "px";
