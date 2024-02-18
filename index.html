@@ -28,9 +28,8 @@
     height: 20px;
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 50%;
-    transition: opacity 1s ease-out;
+    transition: all 0.5s ease-out;
     z-index: 999;
-    opacity: 0; /* Başlangıçta görünmez */
   }
 </style>
 </head>
@@ -60,24 +59,35 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Eğer fare ana dairenin içindeyse, yanıp sönme efekti oluştur
     if (distance < mainCircle.offsetWidth / 2) {
-      const smallCircle = document.createElement("div");
-      smallCircle.classList.add("small-circle");
-      smallCircle.style.top = mouseY + "px";
-      smallCircle.style.left = mouseX + "px";
-      body.appendChild(smallCircle);
+      const smallCircles = document.getElementsByClassName("small-circle");
+      for (let i = 0; i < smallCircles.length; i++) {
+        const smallCircle = smallCircles[i];
+        smallCircle.style.transform = `translate(${dx}px, ${dy}px)`;
+      }
+    }
+  });
 
-      // Küçük daireyi yavaşça görünür yap
-      setTimeout(function() {
-        smallCircle.style.opacity = 1;
-      }, 10);
+  // Rastgele konumlarda ve boyutlarda daireler oluştur
+  setInterval(function() {
+    const smallCircle = document.createElement("div");
+    smallCircle.classList.add("small-circle");
+    smallCircle.style.top = Math.random() * (window.innerHeight - 20) + "px";
+    smallCircle.style.left = Math.random() * (window.innerWidth - 20) + "px";
+    body.appendChild(smallCircle);
 
-      // Belirli bir süre sonra daireyi yavaşça sil
-      setTimeout(function() {
-        smallCircle.style.opacity = 0;
-        setTimeout(function() {
-          smallCircle.remove();
-        }, 1000); // Opaklık geçiş süresi
-      }, 2000);
+    // Belirli bir süre sonra daireyi kaldır
+    setTimeout(function() {
+      smallCircle.remove();
+    }, 2000);
+  }, 100);
+
+  // Ana daireye tıklandığında bir işlem yap
+  mainCircle.addEventListener("click", function() {
+    // Etrafındaki küçük dairelere bir efekt ekle (örneğin renk değişikliği)
+    const smallCircles = document.getElementsByClassName("small-circle");
+    for (let i = 0; i < smallCircles.length; i++) {
+      const smallCircle = smallCircles[i];
+      smallCircle.style.backgroundColor = "red"; // Örneğin, kırmızıya dönüştür
     }
   });
 });
