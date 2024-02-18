@@ -81,21 +81,27 @@ document.addEventListener("DOMContentLoaded", function() {
     }, 2000);
   }, 100);
 
-  // Ana daireye sağ tıklandığında sadece beyaz renkte olan küçük dairelere kırmızı efekt uygula
+  // Ana daireye sağ tıklandığında sadece beyaz toplara mavi efekt uygula
   mainCircle.addEventListener("contextmenu", function(event) {
     event.preventDefault(); // Sağ tık menüsünü engelle
-    const whiteCircles = document.querySelectorAll('.small-circle:not(.red-circle)');
-    whiteCircles.forEach(function(circle) {
-      circle.classList.add("red-circle");
-    });
+    const smallCircles = document.getElementsByClassName("small-circle");
+    for (let i = 0; i < smallCircles.length; i++) {
+      const smallCircle = smallCircles[i];
+      if (smallCircle.style.backgroundColor === "rgba(255, 255, 255, 0.5)") {
+        smallCircle.style.backgroundColor = "blue";
+      }
+    }
   });
 
-  // Ana daireye sol tıklandığında sadece beyaz renkte olan küçük dairelere mavi efekt uygula
+  // Ana daireye sol tıklandığında sadece beyaz toplara kırmızı efekt uygula
   mainCircle.addEventListener("click", function() {
-    const whiteCircles = document.querySelectorAll('.small-circle:not(.blue-circle)');
-    whiteCircles.forEach(function(circle) {
-      circle.classList.add("blue-circle");
-    });
+    const smallCircles = document.getElementsByClassName("small-circle");
+    for (let i = 0; i < smallCircles.length; i++) {
+      const smallCircle = smallCircles[i];
+      if (smallCircle.style.backgroundColor === "rgba(255, 255, 255, 0.5)") {
+        smallCircle.style.backgroundColor = "red";
+      }
+    }
   });
 });
 </script>
