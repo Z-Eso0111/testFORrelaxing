@@ -1,34 +1,18 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dikkat Çekici ve Sakinleştirici Deneyim</title>
-
-  <link rel="stylesheet" href="style.css">
-
-  <audio controls>
-    <source src="sakinlestirici-muzik.mp3" type="audio/mpeg">
-  </audio>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Su Damlası Animasyonu</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body>
-  <div class="arka-plan">
-    <img src="huzurlu-manzara.jpg" alt="Huzurlu Manzara">
-  </div>
-
-  <div class="animasyon-kutusu">
-    <div class="yıldız1"></div>
-    <div class="yıldız2"></div>
-    <div class="yıldız3"></div>
-    <div class="yıldız4"></div>
-    <div class="yıldız5"></div>
-  </div>
-
-  <div class="etkilesim-kutusu">
-    <button id="nefes-al">Nefes Al</button>
-    <button id="odaklan">Odaklan</button>
-  </div>
-
-  <script src="script.js"></script>
+    <canvas id="canvas"></canvas>
+    <script src="script.js"></script>
 </body>
 </html>
